@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/login.jsx'
 import Register from './pages/register.jsx'
 import './index.css'
+import Home from './pages/Home.jsx'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 const router = createBrowserRouter([
   {
@@ -12,11 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Login />,
+        element: <ProtectedRoutes  component={<Home />}/>,
       },
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
       },
     ]
   }
