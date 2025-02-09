@@ -6,6 +6,8 @@ import { auth, db } from '../configs/firebase.config';
 import { onAuthStateChanged } from "firebase/auth";
 import { query, where, addDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
+import { arrayUnion } from 'firebase/firestore';
 
 const PostBar = ({ imgurl }) => {
   const [postText, setPostText] = useState('');
@@ -59,7 +61,7 @@ const PostBar = ({ imgurl }) => {
     // Loop through each document and log its data
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data()); // doc.id is the document ID and doc.data() is the document data
-        postArray.push(doc.data())
+        postArray.push({...doc.data() , docid: doc.id})
         setPostArray([...postArray])
     });
   } catch (error) {
@@ -89,6 +91,15 @@ getAllPosts();
       });
   };
 
+  const likePost = async (item)=>{
+
+    const washingtonRef = doc(db, "posts", item.docid);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(washingtonRef, {
+      likes: arrayUnion({ likerUid: userObj.userUid, likerPic: userObj.imgUrl , username: userObj.username })
+    });
+}
 
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
@@ -129,7 +140,7 @@ getAllPosts();
 
       {/* Post Card */}
       {postArray && postArray.map((item , index)=>{
-        return <div className="bg-white p-4 shadow rounded-lg">
+        return <div key={item.docid} className="bg-white p-4 shadow rounded-lg">
         {/* User Info */}
         <div className="flex items-center space-x-3">
           <img
@@ -154,17 +165,17 @@ getAllPosts();
         {/* Reactions and Comments */}
         <div className="flex items-center justify-between mt-3 text-gray-600 text-sm">
           <div className="flex items-center">
-            <img src="https://randomuser.me/api/portraits/women/46.jpg" alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
-            <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
-            <img src="https://randomuser.me/api/portraits/women/48.jpg" alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
+            {item.likes.map((items)=>{
+                return <img src={items.likerPic} alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
+            })}
             <span className="ml-2">+13</span>
           </div>
-          <p>13 Comments • 340 Likes</p>
+          <p>13 Comments • {item.likes.length} Likes</p>
         </div>
 
         {/* Like, Comment, Share */}
         <div className="border-t pt-3 mt-3 flex justify-between text-gray-600">
-          <button className="flex items-center space-x-1 hover:text-blue-500">
+          <button className="flex items-center space-x-1 hover:text-blue-500" onClick={()=>likePost(item)}>
             <FaRegHeart />
             <span>Like</span>
           </button>
