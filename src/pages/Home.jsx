@@ -5,6 +5,9 @@ import { useState} from 'react'
 import { auth , db } from '../configs/firebase.config'
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import RightSidebar from '../components/RightSideBar'
+import LeftSideBar from '../components/LeftSideBar'
+import FriendSidebar from '../components/FriendRequestModal'
 
 
 
@@ -39,23 +42,26 @@ const Home = () => {
     <>
     <Navbar imgurl={imgUrl}/>
     <div className='flex'>
-        <div className='border flex-col w-[20%] min-h-screen'>
-            <div></div>
-            <div></div>
+        <div className='border flex-col w-[18%] min-h-screen'>
+            <div>
+            <LeftSideBar />
+            </div>
         </div>
-        <div className='border flex-col w-[35%]'>
+        <div className='border flex-col w-[40%]'>
             <div>
                 <PostBar imgurl={imgUrl}/>
             </div>
             <div></div>
         </div>
-        <div className='border flex-col w-[25%]'>
-            <div></div>
-            <div></div>
-        </div>
         <div className='border flex-col w-[20%]'>
-            <div></div>
-            <div></div>
+            <div>
+                <FriendSidebar />
+            </div>
+        </div>
+        <div className='border flex-col w-[22%]'>
+            <div>
+            <RightSidebar />
+            </div>
         </div>
     </div>
     </>

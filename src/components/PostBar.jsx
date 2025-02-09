@@ -15,6 +15,7 @@ const PostBar = ({ imgurl }) => {
   const [userObj, setUserObj] = useState({}); // Initialize as an object
   const navigate = useNavigate();
   const [postArray , setPostArray] = useState([])
+  const [commentText , setCommentText] = useState('')
 
   var myWidget = cloudinary.createUploadWidget({
     cloudName: 'dc9jcq8gl', 
@@ -101,8 +102,18 @@ getAllPosts();
     });
 }
 
+    const commentPost = async (item)=>{
+
+        const washingtonRef = doc(db, "posts", item.docid);
+
+        // Set the "capital" field of the city 'DC'
+        await updateDoc(washingtonRef, {
+        comments: arrayUnion({ commenterUid: userObj.userUid, commenterPic: userObj.imgUrl , username: userObj.username , commentText})
+        });
+    }
+
   return (
-    <div className="max-w-md mx-auto p-4 space-y-4">
+    <div className="mx-2 pt-3 space-y-4">
       {/* Status Input Box */}
       <div className="bg-white p-4 shadow rounded-lg">
         <div className="flex items-center space-x-3">
@@ -165,10 +176,12 @@ getAllPosts();
         {/* Reactions and Comments */}
         <div className="flex items-center justify-between mt-3 text-gray-600 text-sm">
           <div className="flex items-center">
-            {item.likes.map((items)=>{
-                return <img src={items.likerPic} alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
+            {item.likes.map((items , index)=>{
+                if (index <= 2) {
+                    return <img src={items.likerPic} alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
+                }
             })}
-            <span className="ml-2">+13</span>
+            <span className="ml-2">+{item.likes.length > 3 ? item.likes.length - 3 : null}</span>
           </div>
           <p>13 Comments • {item.likes.length} Likes</p>
         </div>
@@ -192,7 +205,7 @@ getAllPosts();
         {/* Comment Box */}
         <div className="border-t pt-3 mt-3 flex items-center">
           <img
-            src="https://randomuser.me/api/portraits/women/49.jpg"
+            src={userObj.imgUrl}
             alt="User"
             className="w-8 h-8 rounded-full"
           />
@@ -200,14 +213,39 @@ getAllPosts();
             type="text"
             placeholder="Write a comment..."
             className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-blue-400 ml-2"
+            value={commentText}
+            onChange={(e)=>setCommentText(e.target.value)}
           />
-          <button className="p-2 bg-pink-500 text-white rounded-full ml-2">
+          <button className="p-2 bg-pink-500 text-white rounded-full ml-2" onClick={()=>commentPost(item)}>
             <IoSend />
           </button>
         </div>
+        
+        
+        
+        {item.comments.map((items, index) => {
+            return (
+                <div key={index} className={`flex items-start space-x-3 mt-4 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'} p-3 rounded-lg`}>
+                {/* User profile picture */}
+                <img
+                    src={items.commenterPic}
+                    alt="User"
+                    className="w-10 h-10 rounded-full border-2 border-gray-200"
+                />
+                <div className="flex-1">
+                    {/* Commenter Name + Comment Text */}
+                    <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                        <span className="font-semibold text-sm text-gray-700">{items.username}</span>
+                    </div>
+                    </div>
+                    <div className="mt-1 text-sm text-gray-800">{items.commentText}</div>
+                </div>
+                </div>
+            );
+        })}
       </div>
       })}
-      
     </div>
   );
 };
