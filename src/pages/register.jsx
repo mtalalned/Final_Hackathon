@@ -41,6 +41,7 @@ const Register = () => {
             email,
             userUid: user.uid,
             imgUrl,
+            friends: []
           });
           console.log("Document written with ID: ", docRef.id);
           navigate ('/login')

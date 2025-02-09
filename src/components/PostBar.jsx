@@ -178,7 +178,7 @@ getAllPosts();
           <div className="flex items-center">
             {item.likes.map((items , index)=>{
                 if (index <= 2) {
-                    return <img src={items.likerPic} alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
+                    return <img key={index} src={items.likerPic} alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
                 }
             })}
             <span className="ml-2">+{item.likes.length > 3 ? item.likes.length - 3 : null}</span>

@@ -3,7 +3,7 @@ import { FaHome, FaUsers, FaShoppingCart, FaEnvelope, FaCog } from 'react-icons/
 
 const LeftSideBar = () => {
   return (
-    <div className="flex flex-col space-y-4 bg-white min-h-screen mx-2 my-2 rounded-lg p-5">
+    <div className="max-w-xs mx-2 mt-3 p-4 space-y-4 bg-white shadow-md rounded-lg">
       <h2 className="text-lg font-bold">Feed</h2>
       <nav className="space-y-3">
         <button className="flex items-center space-x-3 p-2 hover:bg-gray-200 rounded-lg w-full">

@@ -12,11 +12,7 @@ const RightSidebar = () => {
   const chats = [
     { name: "Julia Clarke", location: "New York, USA", img: "https://randomuser.me/api/portraits/women/5.jpg" },
     { name: "Sara Cliene", location: "Sydney, Australia", img: "https://randomuser.me/api/portraits/women/6.jpg" },
-    { name: "Amy Ruth", location: "Dubai, UAE", img: "https://randomuser.me/api/portraits/women/7.jpg" },
-    { name: "Mark Stefine", location: "Chicago, USA", img: "https://randomuser.me/api/portraits/men/8.jpg" },
-    { name: "Trinity Sipson", location: "New York, USA", img: "https://randomuser.me/api/portraits/women/9.jpg" },
-    { name: "Albini Vjosa", location: "Tokyo, Japan", img: "https://randomuser.me/api/portraits/women/10.jpg" },
-  ];
+   ];
 
   return (
     <div className="max-w-xs mx-2 mt-3 p-4 space-y-4 bg-white shadow-md rounded-lg">
@@ -73,16 +69,6 @@ const RightSidebar = () => {
               <FaRegCommentDots className="text-gray-500" />
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Upcoming Events */}
-      <div className="p-4 border-t">
-        <h3 className="text-gray-800 font-semibold mb-3">Upcoming Events</h3>
-        <div className="p-3 bg-gray-100 rounded-lg">
-          <h4 className="font-medium">Design Talks</h4>
-          <p className="text-sm text-gray-500">12 Oct, 13:00 IST</p>
-          <p className="text-xs text-gray-500">A General talk about design with Sr Designer of Logitech Michael Sputnik.</p>
         </div>
       </div>
     </div>
