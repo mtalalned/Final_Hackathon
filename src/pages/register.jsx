@@ -47,6 +47,7 @@ const Register = () => {
       });
       setEmail('')
       setPassword('')
+      setUsername('')
     }
     
     return (

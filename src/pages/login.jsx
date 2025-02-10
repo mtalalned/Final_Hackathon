@@ -34,7 +34,7 @@ const Login = () => {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-1/2 p-8">
+        <div className="w-1/2 p-8 flex flex-col justify-center">
           <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h2>
           <form onSubmit={LoginUser}>
             <div className="mb-4">

@@ -143,7 +143,7 @@ const FriendSidebar = () => {
   return (
     <div className="rounded-lg mx-2 pt-3 space-y-4">
       {/* People You May Know Section */}
-      <div className="bg-white p-4 rounded-lg shadow-lg">
+      <div className="bg-white p-4 rounded-lg shadow-lg overflow-y-scroll h-60">
         <h2 className="text-md font-semibold mb-3">People You May Know</h2>
         <div className="space-y-3">
           {users.map((user) => (
@@ -170,7 +170,7 @@ const FriendSidebar = () => {
       </div>
 
       {/* Friend Requests Section */}
-      <div className="bg-white p-4 rounded-lg shadow-lg">
+      <div className="bg-white p-4 rounded-lg shadow-lg overflow-y-scroll h-60">
         <h2 className="text-md font-semibold mb-3">Friend Requests</h2>
         <div className="space-y-4">
           {friendRequests.length === 0 ? (
