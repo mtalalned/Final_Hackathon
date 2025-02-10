@@ -181,9 +181,9 @@ getAllPosts();
                     return <img key={index} src={items.likerPic} alt="User" className="w-6 h-6 rounded-full border-2 border-white -ml-2" />
                 }
             })}
-            <span className="ml-2">+{item.likes.length > 3 ? item.likes.length - 3 : null}</span>
+            <span className="ml-2">{item.likes.length > 3 ? `+${item.likes.length - 3}` : null}</span>
           </div>
-          <p>13 Comments • {item.likes.length} Likes</p>
+          <p>{item.comments.length} Comments • {item.likes.length} Likes</p>
         </div>
 
         {/* Like, Comment, Share */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import { collection, query, where, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db, auth } from "../configs/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
@@ -128,8 +128,6 @@ const FriendSidebar = () => {
   }
 };
 
-
-
   // Decline friend request
   const declineFriendRequest = async (requestId) => {
     try {
@@ -145,8 +143,8 @@ const FriendSidebar = () => {
   return (
     <div className="rounded-lg mx-2 pt-3 space-y-4">
       {/* People You May Know Section */}
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-md font-semibold mb-3 text-gray-700">People You May Know</h2>
+      <div className="bg-white p-4 rounded-lg shadow-lg">
+        <h2 className="text-md font-semibold mb-3">People You May Know</h2>
         <div className="space-y-3">
           {users.map((user) => (
             <div key={user.userUid} className="flex items-center bg-white p-4 rounded-lg shadow-md mb-3">
@@ -154,13 +152,13 @@ const FriendSidebar = () => {
               <div className="ml-4 flex-1">
                 <p className="text-sm font-medium text-gray-800">{user.username}</p>
                 {sentRequests.has(user.userUid) ? (
-                  <button className="mt-2 w-full bg-gray-400 text-white text-sm font-semibold py-2 rounded-lg">
+                  <button className="mt-2 w-30 bg-pink-200 text-pink-600 text-sm font-semibold py-1 rounded-lg">
                     Request Sent
                   </button>
                 ) : (
                   <button
                     onClick={() => sendFriendRequest(user.userUid)}
-                    className="mt-2 w-full bg-blue-500 text-white text-sm font-semibold py-2 rounded-lg hover:bg-blue-600 transition"
+                    className="mt-2 w-30 bg-pink-500 text-white text-sm font-semibold py-1 rounded-lg hover:bg-pink-600 transition"
                   >
                     Send Request
                   </button>
@@ -172,8 +170,8 @@ const FriendSidebar = () => {
       </div>
 
       {/* Friend Requests Section */}
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-md font-semibold mb-3 text-gray-700">Friend Requests</h2>
+      <div className="bg-white p-4 rounded-lg shadow-lg">
+        <h2 className="text-md font-semibold mb-3">Friend Requests</h2>
         <div className="space-y-4">
           {friendRequests.length === 0 ? (
             <p className="text-gray-500 text-sm">No friend requests at the moment.</p>
@@ -186,7 +184,7 @@ const FriendSidebar = () => {
                   <div className="mt-2 flex gap-2">
                     <button
                       onClick={() => acceptFriendRequest(req.id, req.senderId)}
-                      className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-600"
+                      className="bg-pink-500 text-white text-xs font-semibold px-3 py-1 rounded-md hover:bg-pink-600"
                     >
                       Confirm
                     </button>

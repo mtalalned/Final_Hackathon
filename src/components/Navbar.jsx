@@ -6,26 +6,17 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useEffect , useState } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 
-
-
 const Navbar = ({imgurl}) => {
     
     const navigate = useNavigate()
 
     const SignoutUser = ()=>{
-
         signOut(auth).then(() => {
-        // Sign-out successful.
             navigate('/login')
         }).catch((error) => {
-        // An error happened.
         });
-
     }
-    
 
-
-  
     return (
     <div className="navbar bg-base-100 flex justify-between">
   <div className="flex-0">
@@ -39,20 +30,22 @@ const Navbar = ({imgurl}) => {
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
-            alt="Tailwind CSS Navbar component"
+            alt="Profile Picture"
             src={imgurl} />
         </div>
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li>
-          <a className="justify-between">
-            Home
-          </a>
+        className="menu menu-sm dropdown-content bg-white border border-gray-300 rounded-lg shadow-lg z-[1] mt-3 w-52 p-2">
+        <li className="hover:bg-gray-100 rounded-md">
+          <a className="flex items-center py-2 px-4 text-gray-700">Home</a>
         </li>
-        <li><a>Profile</a></li>
-        <li onClick={SignoutUser}><a>Logout</a></li>
+        <li className="hover:bg-gray-100 rounded-md">
+          <a className="flex items-center py-2 px-4 text-gray-700">Profile</a>
+        </li>
+        <li onClick={SignoutUser} className="hover:bg-gray-100 rounded-md">
+          <a className="flex items-center py-2 px-4 text-red-500">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
